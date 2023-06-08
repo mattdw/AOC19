@@ -93,13 +93,11 @@ object Day12 {
         }
 
         val periods = mutableListOf(0L, 0, 0)
-        val individualStates = listOf(HashSet<List<Long>>(), HashSet<List<Long>>(), HashSet<List<Long>>())
-
-        println(moons)
+        val individualStates = listOf(HashSet<List<Long>>(), HashSet(), HashSet())
 
         var steps = 0L
         while (periods.any { it == 0L }) {
-            (0 until 3).map { axis ->
+            (0..2).map { axis ->
                 if (periods[axis] != 0L) return@map
                 val coords = when (axis) {
                     0 -> moons.flatMap { listOf(it.loc.x, it.vel.x) }
@@ -114,7 +112,6 @@ object Day12 {
                     individualStates[axis].add(coords)
                 }
             }
-
             step(moons)
             steps++
         }
